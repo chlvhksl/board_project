@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xml:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세페이지</title>
+</head>
+
+<style>
+    .layout{
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+</style>
+
+<body>
+  <div class="layout">
+      <table>
+          <tr>
+              <th th:text="${board.title}">제목</th>
+          </tr>
+          <tr>
+              <td th:text="${board.content}">내용</td>
+          </tr>
+          <tr>
+              <td>
+                  <a th:href="@{/board/delete(id=${board.id})}">삭제</a>
+              </td>
+              <td>
+                  <a th:href="@{/board/modify/{id}(id=${board.id})}">수정</a>
+              </td>
+          </tr>
+      </table>
+  </div>
+</body>
+</html>
