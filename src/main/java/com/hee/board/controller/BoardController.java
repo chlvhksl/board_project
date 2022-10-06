@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 
 @Controller
 public class BoardController {
@@ -22,9 +26,13 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board){ //entity형식을 그대로 가져올 수 있다.
+    public void boardWritePro(Board board, HttpServletResponse response) throws IOException { //entity형식을 그대로 가져올 수 있다.
         boardService.write(board);
-        return "";
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('글 작성이 완료 되었습니다.'); location.replace('/board/list')</script>");
+        out.flush();
     }
 
     @GetMapping("/board/list")
