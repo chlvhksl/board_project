@@ -26,9 +26,11 @@
 
 <body>
     <div class="layout">
-        <form action="/board/writepro" method="post">
+                                                    <!-- 파일 업로드를 위한 설정 -->
+        <form action="/board/writepro" method="post" enctype="multipart/form-data">
             <input type="text" name="title">
             <textarea name="content"></textarea>
+            <input type="file" name="file">
             <button type="submit">작성</button>
         </form>
     </div>

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,8 +27,8 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public void boardWritePro(Board board, HttpServletResponse response) throws IOException { //entity형식을 그대로 가져올 수 있다.
-        boardService.write(board);
+    public void boardWritePro(Board board, HttpServletResponse response, MultipartFile file) throws IOException { //entity형식을 그대로 가져올 수 있다.
+        boardService.write(board, file);
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -60,12 +61,12 @@ public class BoardController {
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board){
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file) throws IOException {
         Board boardTemp = boardService.boardDetail(id);
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
 
-        boardService.write(boardTemp);//사실 덮어 씌우면 안된다고한다...
+        boardService.write(boardTemp, file);//사실 덮어 씌우면 안된다고한다...
 
         return "redirect:/board/list";
     }
